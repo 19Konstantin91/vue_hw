@@ -4,15 +4,20 @@
 
     <nav class="container header">
       <a class="logoHeader" href="#"><img class="logo" src="./assets/logo.png" alt="logo"></a>
-      <button>basket</button>
+      <button v-on:click="onBasketBtnClick">basket</button>
+      <div v-if="isBasketShowed" class="basket">
+        <h2>Basket</h2>
+        <button v-on:click="onCloseBasketBtnClick">Закрыть</button>
+      </div>
     </nav>
 
     <main class="product container">
       
-        <div class="card" v-for="item, i of list" v-bind:key="i" >
-          <h3>{{cart.title}}</h3>
-          <p>{{cart.price}}</p>
+        <div class="card" v-for="prod, i of item" v-bind:key="i" >
+          <h3>{{prod.title}}</h3>
+          <p>{{prod.price}}</p>
           <button>add basket</button>
+
         </div>
         
     </main>
@@ -28,15 +33,24 @@
 export default {
   data() {
     return {
+      isBasketShowed: false,
       item: [
-        {title: 'Shirt', price: 'green', id},
-        {title: 'Shoes', price: 'red', id},
-        {title: 'Hat', price: 'orange', id},
-        {title: 'Jacket', price: 'black', id},
-        {title: 'Socks', price: 'white', id},
+        {title: "Shirt", price: "green"},
+        {title: "Shoes", price: "red"},
+        {title: "Hat", price: "orange"},
+        {title: "Jacket", price: "black"},
+        {title: "Socks", price: "white"}
       ]
     }
-  }
+  },
+  methods: {
+        onBasketBtnClick() {
+            this.isBasketShowed = true;
+        },
+        onCloseBasketBtnClick() {
+            this.isBasketShowed = false;
+        },
+    },
 }
 </script>
 
@@ -77,6 +91,7 @@ export default {
   background: rgb(209, 209, 209);
   margin: 10px;
   text-align: center;
+  border: 1px solid black;
   -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
   -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
@@ -86,5 +101,16 @@ export default {
   top: 95%;
   left: 0;
   right: 0;
+}
+.basket {
+    width: 300px;
+    height: 300px;
+    background: #fff;
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 5px;
+    position: absolute;
+    top: 100px;
+    left: calc(65% - 10px);
 }
 </style>
